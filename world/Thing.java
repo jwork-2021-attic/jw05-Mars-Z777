@@ -39,13 +39,5 @@ public class Thing {
     public char getGlyph() {
         return this.glyph;
     }
-    
-    public int changeDir(int dir) {
-    	if(dir % 2 == 0)
-    		dir++;
-    	else
-    		dir--;
-    	return dir;
-    }
 
 }

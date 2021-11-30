@@ -10,11 +10,15 @@ import world.World;
 
 public class Player extends Creature {
 	
+	private final long interval = 500;
+	private long lastshoottime;
+	
 	public Player(Color color, World world, PlayScreen screen) {
 		super(color, (char)2, world, screen);
 		health = 5;
 		maxHp = 5;
 		power = 1;
+		lastshoottime = -1;
 	}
 
 	@Override
@@ -44,6 +48,15 @@ public class Player extends Creature {
 	}
 	
 	public synchronized void attack() {
+		if(lastshoottime == -1)
+			lastshoottime = System.currentTimeMillis();
+		else {
+			long now = System.currentTimeMillis();
+			if(now - lastshoottime < interval)
+				return;
+			else
+				lastshoottime = now;
+		}
 		int x = getX() + Thing.dirs[dir][0];
 		int y = getY() + Thing.dirs[dir][1];
 		int type = world.posJudge(x, y);

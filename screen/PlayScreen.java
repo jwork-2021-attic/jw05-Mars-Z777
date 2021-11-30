@@ -43,7 +43,7 @@ public class PlayScreen implements Screen {
     	monsters = new ArrayList<Monster>();
     	top = 6;
     	left = 43;
-    	monsterNum = 20;
+    	monsterNum = 15;
     	
     	controller = new GameControl(this);
     	controller.start();

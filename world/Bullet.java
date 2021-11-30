@@ -12,6 +12,13 @@ public class Bullet extends Thing {
 	private int damage;
 	// private Creature parent;
 	
+	private void changeDir() {
+    	if(dir % 2 == 0)
+    		dir++;
+    	else
+    		dir--;
+    }
+	
 	public Bullet(Color color, World world, PlayScreen screen, int dir, Creature c) {
 		super(color, (char)7, world);
 		this.screen = screen;
@@ -35,7 +42,7 @@ public class Bullet extends Thing {
 			this.moveTo(x, y);
 		else if(type == 0 || type == 2 || type == -1) {
 			//screen.deleteBullet(this);
-			this.dir = changeDir(dir);
+			this.changeDir();
 		}
 		else if(type == 3) {
 			Creature target = (Creature) world.get(x, y);
