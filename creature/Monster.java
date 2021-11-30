@@ -5,10 +5,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import screen.PlayScreen;
-import world.Bullet;
-import world.Floor;
-import world.Thing;
-import world.World;
+import world.*;
 
 public class Monster extends Creature {
 
@@ -25,14 +22,23 @@ public class Monster extends Creature {
 		
 		try {
 			while(health > 0) {
-				TimeUnit.MILLISECONDS.sleep(200);
+				TimeUnit.MILLISECONDS.sleep(250);
 				action();
 			}
 		}catch(InterruptedException e) {
 			System.out.println("Monster thread error");
 		}finally {
 			screen.deleteMonster(this);
-			world.put(new Floor(world), getX(), getY());
+			Random r = new Random();
+			int chance = r.nextInt(2);
+			int x = getX();
+			int y = getY();
+			if(chance == 0)
+				world.put(new Cure(world), x, y);
+			else if(chance == 1)
+				world.put(new Power_up(world), x, y);
+			else
+				world.put(new Floor(world), x, y);
 		}
 		
 	}
@@ -53,7 +59,7 @@ public class Monster extends Creature {
 		int x = getX() + Thing.dirs[dir][0];
 		int y = getY() + Thing.dirs[dir][1];
 		int status = world.posJudge(x, y);
-		if(status == 1)
+		if(status == 1 || status == 5)
 			this.moveTo(x, y);
 	}
 	
@@ -74,6 +80,10 @@ public class Monster extends Creature {
 			else if(type == 4) {
 				Bullet b = (Bullet)world.get(x, y);
 				screen.deleteBullet(b);
+			}
+			else if(type == 5) {
+				Prop p = (Prop)world.get(x, y);
+				screen.deleteProp(p);
 			}
 		}
 	}

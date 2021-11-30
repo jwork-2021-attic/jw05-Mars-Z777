@@ -54,6 +54,8 @@ public class World {
     			return 3;
     		if(t instanceof Bullet)
     			return 4;
+    		if(t instanceof Prop)
+    			return 5;
     	}
 		return -2;
     }

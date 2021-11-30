@@ -54,6 +54,11 @@ public class Bullet extends Thing {
 			screen.deleteBullet(b);
 			screen.deleteBullet(this);
 		}
+		else if(type == 5) {
+			Prop p = (Prop)world.get(x, y);
+			screen.deleteBullet(this);
+			screen.deleteProp(p);
+		}
 	}
 
 }

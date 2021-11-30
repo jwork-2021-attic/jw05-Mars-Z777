@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.util.concurrent.TimeUnit;
 
 import screen.PlayScreen;
-import world.Bullet;
-import world.Thing;
-import world.World;
+import world.*;
 
 public class Player extends Creature {
 	
@@ -43,8 +41,20 @@ public class Player extends Creature {
 		int status = world.posJudge(x, y);
 		if(status == 0)
 			screen.win();
-		if(status == 1)
+		else if(status == 1)
 			this.moveTo(x, y);
+		else if(status == 5) {
+			Prop p = (Prop)world.get(x, y);
+			if(p instanceof Cure) {
+				Cure c = (Cure)p;
+				this.beCure(c.getEffect());
+			}
+			else if(p instanceof Power_up) {
+				this.powerup();
+			}
+			screen.deleteProp(p);
+			this.moveTo(x, y);
+		}
 	}
 	
 	public synchronized void attack() {
@@ -74,7 +84,22 @@ public class Player extends Creature {
 				Bullet b = (Bullet)world.get(x, y);
 				screen.deleteBullet(b);
 			}
+			else if(type == 5) {
+				Prop p = (Prop)world.get(x, y);
+				screen.deleteProp(p);
+			}
 		}
+	}
+	
+	private void beCure(int effect) {
+		health += effect;
+		if(health >= maxHp)
+			health = maxHp;
+	}
+	
+	private void powerup() {
+		if(power < 3)
+			power++;
 	}
 
 }

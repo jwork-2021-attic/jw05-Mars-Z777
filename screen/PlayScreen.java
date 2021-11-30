@@ -6,6 +6,7 @@ import thread.GameControl;
 import world.Bullet;
 import world.Finish;
 import world.Floor;
+import world.Prop;
 import world.World;
 
 import java.awt.Color;
@@ -23,6 +24,8 @@ public class PlayScreen implements Screen {
 	private ArrayList<Monster> monsters;
 	private CopyOnWriteArrayList<Bullet> bullets;
 	private CopyOnWriteArrayList<Bullet> deleteBullets;
+	private CopyOnWriteArrayList<Prop> props;
+	private CopyOnWriteArrayList<Prop> deleteProps;
 	private GameControl controller;
 	private int speedcount = 0;
 	private int speed = 5;
@@ -40,6 +43,8 @@ public class PlayScreen implements Screen {
     	world.put(finish, world.WIDTH - 1, world.HEIGHT - 1);
     	bullets = new CopyOnWriteArrayList<Bullet>();
     	deleteBullets = new CopyOnWriteArrayList<Bullet>();
+    	props = new CopyOnWriteArrayList<Prop>();
+    	deleteProps = new CopyOnWriteArrayList<Prop>();
     	monsters = new ArrayList<Monster>();
     	top = 6;
     	left = 43;
@@ -124,6 +129,14 @@ public class PlayScreen implements Screen {
     	deleteBullets.add(b);
     }
     
+    public void addProp(Prop p) {
+    	props.add(p);
+    }
+    
+    public void deleteProp(Prop p) {
+    	deleteProps.add(p);
+    }
+    
     public void update() {
     	speedcount++;
     	if(speedcount == speed) {
@@ -138,6 +151,10 @@ public class PlayScreen implements Screen {
     		world.put(new Floor(world), x, y);
     	}
     	deleteBullets.clear();
+    	for(Prop p: deleteProps) {
+    		props.remove(p);
+    	}
+    	deleteProps.clear();
     }
 	
     public Player getPlayer() {
