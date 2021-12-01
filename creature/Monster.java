@@ -11,8 +11,8 @@ public class Monster extends Creature {
 
 	public Monster(Color color, World world, PlayScreen screen) {
 		super(color, (char)1, world, screen);
-		health = 10;
-		maxHp = 10;
+		health = 5;
+		maxHp = 5;
 		Random r = new Random();
 		power = r.nextInt(3) + 1;
 	}

@@ -16,7 +16,7 @@ public class ScreenUpdate implements Runnable {
 	public void run() {
 		try {
 			while(true) {
-				TimeUnit.MILLISECONDS.sleep(40);
+				TimeUnit.MILLISECONDS.sleep(50);
 				frame.repaint();
 			}
 		}catch(InterruptedException e) {
