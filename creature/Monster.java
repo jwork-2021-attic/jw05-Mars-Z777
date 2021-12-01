@@ -30,7 +30,7 @@ public class Monster extends Creature {
 		}finally {
 			screen.deleteMonster(this);
 			Random r = new Random();
-			int chance = r.nextInt(2);
+			int chance = r.nextInt(8);
 			int x = getX();
 			int y = getY();
 			if(chance == 0)

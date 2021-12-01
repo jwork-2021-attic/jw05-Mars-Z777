@@ -3,6 +3,7 @@ package world;
 import java.awt.Color;
 
 import creature.Creature;
+import creature.Monster;
 import screen.PlayScreen;
 
 public class Bullet extends Thing {
@@ -10,7 +11,7 @@ public class Bullet extends Thing {
 	private PlayScreen screen;
 	private int dir;
 	private int damage;
-	// private Creature parent;
+	private Creature parent;
 	
 	private void changeDir() {
     	if(dir % 2 == 0)
@@ -24,7 +25,7 @@ public class Bullet extends Thing {
 		this.screen = screen;
 		this.dir = dir;
 		this.damage = c.getPower();
-		// this.parent = c;
+		this.parent = c;
 	}
 	
 	public void moveTo(int xPos, int yPos) {
@@ -46,7 +47,8 @@ public class Bullet extends Thing {
 		}
 		else if(type == 3) {
 			Creature target = (Creature) world.get(x, y);
-			target.beHit(damage);
+			if(!(target == parent && target instanceof Monster))
+				target.beHit(damage);
 			screen.deleteBullet(this);
 		}
 		else if(type == 4) {
