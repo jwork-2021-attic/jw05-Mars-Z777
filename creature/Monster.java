@@ -10,7 +10,7 @@ import world.*;
 public class Monster extends Creature {
 
 	public Monster(Color color, World world, PlayScreen screen) {
-		super(color, (char)2, world, screen);
+		super(color, (char)1, world, screen);
 		health = 10;
 		maxHp = 10;
 		Random r = new Random();
@@ -22,7 +22,7 @@ public class Monster extends Creature {
 		
 		try {
 			while(health > 0) {
-				TimeUnit.MILLISECONDS.sleep(250);
+				TimeUnit.MILLISECONDS.sleep(500);
 				action();
 			}
 		}catch(InterruptedException e) {
@@ -30,7 +30,7 @@ public class Monster extends Creature {
 		}finally {
 			screen.deleteMonster(this);
 			Random r = new Random();
-			int chance = r.nextInt(8);
+			int chance = r.nextInt(4);
 			int x = getX();
 			int y = getY();
 			if(chance == 0)
